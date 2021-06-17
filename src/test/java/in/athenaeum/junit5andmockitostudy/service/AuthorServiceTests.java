@@ -3,6 +3,8 @@ package in.athenaeum.junit5andmockitostudy.service;
 import in.athenaeum.junit5andmockitostudy.model.Author;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("AuthorService should")
@@ -22,12 +24,13 @@ class AuthorServiceTests {
         assertNotNull(author);
     }
 
-    @Test
+    //  this is now parameterized
+    @ParameterizedTest
+    @ValueSource(ints = {12, 14, 144, 16, 18, 24})
     @DisplayName("return an author by id, when id is found")
-    public void getAuthorByIdWhenIdIsFound() {
+    public void getAuthorByIdWhenIdIsFound(int id) {
         //  Arrange
         AuthorService service = new AuthorService();
-        int id = 34;    //  make sure it is even
 
         //  Act
         Author author = service.getById(id);
@@ -39,12 +42,14 @@ class AuthorServiceTests {
         );
     }
 
-    //  exception testing
-    @Test
+
+    //  this is now parameterized
+    @ParameterizedTest
+    @ValueSource(ints = {7, 15, 133, 17, 19, 297})
     @DisplayName("throw RuntimeException when id is not found")
-    public void throwsRuntimeExceptionWhenIdIsNotFound() {
+    public void throwsRuntimeExceptionWhenIdIsNotFound(int id) {
         AuthorService service = new AuthorService();
-        Throwable exception = assertThrows(RuntimeException.class, () -> service.getById(35));
+        Throwable exception = assertThrows(RuntimeException.class, () -> service.getById(id));
         assertEquals("Cannot find the author id", exception.getMessage());
     }
 
