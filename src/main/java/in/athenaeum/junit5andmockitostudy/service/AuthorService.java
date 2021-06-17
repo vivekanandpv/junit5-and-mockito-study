@@ -8,6 +8,10 @@ import java.util.List;
 public class AuthorService {
     private final List<Author> authorList = new ArrayList<>();
 
+    public List<Author> getAuthorList() {
+        return authorList;
+    }
+
     //  return value
     public Author getRandomAuthor() {
         return new Author(12, "Rajendra", "Prashant", "India");
@@ -16,7 +20,7 @@ public class AuthorService {
     //  possible exception
     public Author getById(int id) {
         if (id % 2 == 0) {
-            return new Author(12, "Rajendra", "Prashant", "India");
+            return new Author(id, "Rajendra", "Prashant", "India");
         } else {
             throw new IllegalArgumentException("Cannot find the author id");
         }
