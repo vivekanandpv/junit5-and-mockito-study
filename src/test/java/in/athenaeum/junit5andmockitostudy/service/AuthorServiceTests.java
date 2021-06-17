@@ -1,10 +1,7 @@
 package in.athenaeum.junit5andmockitostudy.service;
 
 import in.athenaeum.junit5andmockitostudy.model.Author;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.logging.Logger;
 
@@ -14,14 +11,14 @@ class AuthorServiceTests {
 
     private static Logger logger = Logger.getLogger("AuthorServiceTests");
 
-    @BeforeAll
-    static void beforeAll() {
-        logger.info("beforeAll()");
+    @BeforeEach
+    private void setUp() {
+        logger.info("beforeEach()");
     }
 
-    @AfterAll
-    static void afterAll() {
-        logger.info("afterAll()");
+    @AfterEach
+    private void tearDown() {
+        logger.info("afterEach()");
     }
 
     //  return value testing
