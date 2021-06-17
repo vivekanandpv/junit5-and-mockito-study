@@ -1,12 +1,28 @@
 package in.athenaeum.junit5andmockitostudy.service;
 
 import in.athenaeum.junit5andmockitostudy.model.Author;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("AuthorService should")
 class AuthorServiceTests {
+
+    private static Logger logger = Logger.getLogger("AuthorServiceTests");
+
+    @BeforeAll
+    static void beforeAll() {
+        logger.info("beforeAll()");
+    }
+
+    @AfterAll
+    static void afterAll() {
+        logger.info("afterAll()");
+    }
 
     //  return value testing
     @Test
@@ -20,6 +36,8 @@ class AuthorServiceTests {
 
         //  Assert
         assertNotNull(author);
+
+        logger.info("getRandomAuthorReturnsAuthor()");
     }
 
     @Test
@@ -37,6 +55,8 @@ class AuthorServiceTests {
                 () -> assertEquals(id, author.getId()),
                 () -> assertEquals("India", author.getCountry())
         );
+
+        logger.info("getAuthorByIdWhenIdIsFound()");
     }
 
     //  exception testing
@@ -46,6 +66,7 @@ class AuthorServiceTests {
         AuthorService service = new AuthorService();
         Throwable exception = assertThrows(RuntimeException.class, () -> service.getById(35));
         assertEquals("Cannot find the author id", exception.getMessage());
+        logger.info("throwsRuntimeExceptionWhenIdIsNotFound()");
     }
 
     //  side-effect testing
@@ -59,5 +80,7 @@ class AuthorServiceTests {
         service.addAuthor(new Author());
         //  size now should be 1
         assertEquals(1, service.getAuthorList().size());
+        logger.info("addsAnAuthorToList()");
+
     }
 }
